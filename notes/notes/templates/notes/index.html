@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Notes{% endblock %}</h1>
+  {% if g.user %}
+    <a class="btn btn-success btn-lg active" href="{{ url_for('notes.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+<article class="note">
+  {% if g.user %}
+  {% if notes %}
+  {% for note in notes if g.user['id'] == note['author_id'] %}
+  <div class="card my-3 mr-3" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">{{ note['title'] }} <span class="badge badge-pill badge-light">{{ note['created'].strftime('%Y-%m-%d') }}</span></h5>
+            <p class="card-text">{{ note['body'] }}</p>
+            {% if g.user['id'] == note['author_id'] %}
+            <a class="btn btn-primary" href="{{ url_for('notes.update', id=note['id']) }}">Edit</a>
+            {% endif %}
+          </div>
+        </div>
+  {% endfor %}
+  {% else %}
+
+  {% endif %}
+  {% else %}
+  <h1 class="display-3">You are not logged in</h1>
+  {% endif%}
+
+
+
+
+  </article>
+{% endblock %}
