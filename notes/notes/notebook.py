@@ -78,7 +78,7 @@ def create():
     return render_template('notes/create.html')
 
 
-@bp.route('/<int:id>/update', methods=('GET', 'note'))
+@bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
     """Update a note if the current user is the author."""
